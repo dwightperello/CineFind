@@ -42,6 +42,9 @@ class MovieListFragment : Fragment() {
     private fun setupGenreRecyclerView() {
         genreAdapter = GenreAdapter { genre ->
             Log.d("mapping", "Selected genre: ${genre.name} (id=${genre.id})")
+            genre.id?.let { id ->
+                viewModel.getMoviesBasedOnGenre(id)
+            }
         }
         binding.rvGenres.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -76,6 +79,9 @@ class MovieListFragment : Fragment() {
         }
         viewModel.genre.observe(viewLifecycleOwner) { state ->
             genreAdapter.submitList(state.genres)
+        }
+        viewModel.genreMovies.observe(viewLifecycleOwner) { state ->
+            movieAdapter.submitList(state.movies)
         }
     }
 

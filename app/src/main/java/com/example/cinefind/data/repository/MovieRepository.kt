@@ -11,4 +11,6 @@ interface MovieRepository {
     suspend fun getGenre(): GenreState
     suspend fun getAccount(): AccountResponse
     suspend fun markFavorite(accountId: Int, movieId: Int, favorite: Boolean): FavoriteResponse
+
+    suspend fun getMoviesBasedGenre(genreId: Int) : MovieState
 }

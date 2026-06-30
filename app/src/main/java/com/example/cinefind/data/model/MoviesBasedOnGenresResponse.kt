@@ -1,7 +1,5 @@
 package com.example.cinefind.data.model
 
-data class UpcomingMovieResponse(
+data class MoviesBasedOnGenresResponse(
     val results: List<MovieResponse>
 )
-
-
