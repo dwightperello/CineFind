@@ -6,6 +6,7 @@ import com.example.cinefind.data.service.MovieApiService
 import com.example.cinefind.domain.usecase.GetAccountUseCase
 import com.example.cinefind.domain.usecase.GetGenreUseCase
 import com.example.cinefind.domain.usecase.GetMovieUseCase
+import com.example.cinefind.domain.usecase.GetMoviesBasedOnGenreUseCase
 import com.example.cinefind.domain.usecase.GetUpcomingMovieUseCase
 import com.example.cinefind.domain.usecase.MarkFavoriteUseCase
 import dagger.Module
@@ -47,4 +48,10 @@ object MovieModule {
     @Provides
     fun provideMarkFavoriteUseCase(repository: MovieRepository): MarkFavoriteUseCase =
         MarkFavoriteUseCase(repository)
+
+    @Singleton
+    @Provides
+    fun providesGetMoviesBasedOnGenres(repository: MovieRepository) : GetMoviesBasedOnGenreUseCase =
+        GetMoviesBasedOnGenreUseCase(repository)
 }
+

@@ -9,6 +9,7 @@ import com.example.cinefind.data.model.MovieState
 import com.example.cinefind.domain.usecase.GetAccountUseCase
 import com.example.cinefind.domain.usecase.GetGenreUseCase
 import com.example.cinefind.domain.usecase.GetMovieUseCase
+import com.example.cinefind.domain.usecase.GetMoviesBasedOnGenreUseCase
 import com.example.cinefind.domain.usecase.GetUpcomingMovieUseCase
 import com.example.cinefind.domain.usecase.MarkFavoriteUseCase
 import com.example.cinefind.presentation.base.BaseViewModel
@@ -25,7 +26,8 @@ class MovieViewModel @Inject constructor(
     private val getUpcomingMovieUseCase: GetUpcomingMovieUseCase,
     private val getGenreUseCase: GetGenreUseCase,
     private val getAccountUseCase: GetAccountUseCase,
-    private val markFavoriteUseCase: MarkFavoriteUseCase
+    private val markFavoriteUseCase: MarkFavoriteUseCase,
+    private val getMoviesBasedOnGenreUseCase: GetMoviesBasedOnGenreUseCase
 ) : BaseViewModel() {
 
     private val _movieDetailState = MutableStateFlow<MovieDetailState>(MovieDetailState.Idle)
@@ -36,6 +38,9 @@ class MovieViewModel @Inject constructor(
 
     private val _genre = SingleLiveEvent<GenreState.Success>()
     val genre: LiveData<GenreState.Success> = _genre
+
+    private val _genreMovies = SingleLiveEvent<MovieState.SuccessList>()
+    val genreMovies : LiveData<MovieState.SuccessList> = _genreMovies
 
     private var accountId: Int? = null
 
@@ -53,6 +58,19 @@ class MovieViewModel @Inject constructor(
                 when (state) {
                     is MovieState.Success -> _movieDetailState.value = MovieDetailState.Success(state.movie)
                     is MovieState.Error -> _movieDetailState.value = MovieDetailState.Error(state.message)
+                    else -> Unit
+                }
+            }
+        )
+    }
+
+    fun getMoviesBasedOnGenre(id: Int){
+        viewModelScope.launchSafely(
+            execute = {getMoviesBasedOnGenreUseCase.execute(id)},
+            onSuccess = {state ->
+                when(state){
+                    is MovieState.SuccessList -> _genreMovies.value = state
+                    is MovieState.Error -> _genericError.value = state.message
                     else -> Unit
                 }
             }
