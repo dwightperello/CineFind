@@ -1,5 +1,6 @@
 package com.example.cinefind.data.repository
 
+import com.example.cinefind.data.model.GenreState
 import com.example.cinefind.data.model.MovieState
 import com.example.cinefind.data.service.MovieApiService
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +17,24 @@ class MovieRepositoryImpl @Inject constructor(
             MovieState.Success(response)
         } catch (e: Exception) {
             MovieState.Error(e.message)
+        }
+    }
+
+    override suspend fun getUpcomingMovies(): MovieState {
+        return try {
+            val response = withContext(Dispatchers.IO) { apiService.getUpcomingMovies() }
+            MovieState.SuccessList(response.results)
+        } catch (e: Exception) {
+            MovieState.Error(e.message)
+        }
+    }
+
+    override suspend fun getGenre(): GenreState {
+        return try {
+            val response = withContext(Dispatchers.IO) { apiService.getGenre() }
+            GenreState.Success(response.genres)
+        } catch (e: Exception) {
+            GenreState.Error(e.message)
         }
     }
 }

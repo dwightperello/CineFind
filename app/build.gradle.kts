@@ -66,6 +66,9 @@ dependencies {
     // ConstraintLayout
     implementation(libs.constraintlayout)
 
+    // RecyclerView
+    implementation(libs.recyclerview)
+
     // Coil
     implementation(libs.coil)
 
