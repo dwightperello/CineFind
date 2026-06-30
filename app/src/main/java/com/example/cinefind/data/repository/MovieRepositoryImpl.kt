@@ -1,5 +1,7 @@
 package com.example.cinefind.data.repository
 
+import com.example.cinefind.data.model.AccountResponse
+import com.example.cinefind.data.model.FavoriteRequest
 import com.example.cinefind.data.model.GenreState
 import com.example.cinefind.data.model.MovieState
 import com.example.cinefind.data.service.MovieApiService
@@ -37,4 +39,12 @@ class MovieRepositoryImpl @Inject constructor(
             GenreState.Error(e.message)
         }
     }
+
+    override suspend fun getAccount(): AccountResponse =
+        withContext(Dispatchers.IO) { apiService.getAccount() }
+
+    override suspend fun markFavorite(accountId: Int, movieId: Int, favorite: Boolean) =
+        withContext(Dispatchers.IO) {
+            apiService.markFavorite(accountId, FavoriteRequest(mediaId = movieId, favorite = favorite))
+        }
 }
