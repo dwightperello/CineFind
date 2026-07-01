@@ -6,6 +6,7 @@ import com.example.cinefind.data.model.FavoriteResponse
 import com.example.cinefind.data.model.GenreResponse
 import com.example.cinefind.data.model.MovieResponse
 import com.example.cinefind.data.model.MoviesBasedOnGenresResponse
+import com.example.cinefind.data.model.MyFavoritesResponse
 import com.example.cinefind.data.model.UpcomingMovieResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -35,6 +36,11 @@ interface MovieApiService {
         @Path("accountId") accountId: Int,
         @Body body: FavoriteRequest
     ): FavoriteResponse
+
+    @GET(value = "account/{account_id}/favorite/movies")
+    suspend fun getFavoriteMovies(
+        @Path("account_id") accountId: Int
+    ) : MyFavoritesResponse
 
     @GET(value = "discover/movie")
     suspend fun getMoviesBasedGenre(

@@ -10,6 +10,7 @@ import com.example.cinefind.domain.usecase.GetAccountUseCase
 import com.example.cinefind.domain.usecase.GetGenreUseCase
 import com.example.cinefind.domain.usecase.GetMovieUseCase
 import com.example.cinefind.domain.usecase.GetMoviesBasedOnGenreUseCase
+import com.example.cinefind.domain.usecase.GetMyFavoriteMoviesUseCase
 import com.example.cinefind.domain.usecase.GetUpcomingMovieUseCase
 import com.example.cinefind.domain.usecase.MarkFavoriteUseCase
 import com.example.cinefind.presentation.base.BaseViewModel
@@ -27,7 +28,8 @@ class MovieViewModel @Inject constructor(
     private val getGenreUseCase: GetGenreUseCase,
     private val getAccountUseCase: GetAccountUseCase,
     private val markFavoriteUseCase: MarkFavoriteUseCase,
-    private val getMoviesBasedOnGenreUseCase: GetMoviesBasedOnGenreUseCase
+    private val getMoviesBasedOnGenreUseCase: GetMoviesBasedOnGenreUseCase,
+    private val getMyFavoriteMoviesUseCase: GetMyFavoriteMoviesUseCase
 ) : BaseViewModel() {
 
     private val _movieDetailState = MutableStateFlow<MovieDetailState>(MovieDetailState.Idle)
@@ -35,6 +37,9 @@ class MovieViewModel @Inject constructor(
 
     private val _movieUpcoming = SingleLiveEvent<MovieState.SuccessList>()
     val movieUpcoming: LiveData<MovieState.SuccessList> = _movieUpcoming
+
+    private val _myFavoriteMovie = SingleLiveEvent<MovieState.SuccessList>()
+    val myFavoriteMovie: LiveData<MovieState.SuccessList> = _myFavoriteMovie
 
     private val _genre = SingleLiveEvent<GenreState.Success>()
     val genre: LiveData<GenreState.Success> = _genre
@@ -107,6 +112,24 @@ class MovieViewModel @Inject constructor(
         viewModelScope.launchSafely(
             execute = { getAccountUseCase.execute() },
             onSuccess = { response -> accountId = response.id }
+        )
+    }
+
+    fun getMyFavoriteMovies(){
+        val id = accountId ?: run {
+            Log.w("mapping", "markFavorite called before account loaded")
+            return
+        }
+
+        viewModelScope.launchSafely(
+            execute = {getMyFavoriteMoviesUseCase.execute(id)},
+            onSuccess = { state ->
+                when (state) {
+                    is MovieState.SuccessList -> _myFavoriteMovie.value = state
+                    is MovieState.Error -> _genericError.value = state.message
+                    else -> Unit
+                }
+            }
         )
     }
 

@@ -22,6 +22,12 @@ class MovieAdapter(
         notifyDataSetChanged()
     }
 
+    fun markAllFavorite(ids: Set<Int>) {
+        likedIds.clear()
+        likedIds.addAll(ids)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val binding = ItemMovieCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(binding)

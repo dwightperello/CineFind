@@ -48,6 +48,15 @@ class MovieRepositoryImpl @Inject constructor(
             apiService.markFavorite(accountId, FavoriteRequest(mediaId = movieId, favorite = favorite))
         }
 
+    override suspend fun getMyFavorites(accountId: Int): MovieState {
+        return try {
+            val response = withContext(Dispatchers.IO) { apiService.getFavoriteMovies(accountId) }
+            MovieState.SuccessList(response.results)
+        } catch (e: Exception) {
+            MovieState.Error(e.message)
+        }
+    }
+
     override suspend fun getMoviesBasedGenre(genreId: Int): MovieState {
         return try {
             val response = withContext(Dispatchers.IO) { apiService.getMoviesBasedGenre(genreId) }
