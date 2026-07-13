@@ -1,4 +1,4 @@
-package com.example.cinefind.presentation.base
+package com.example.mvvmbase
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData

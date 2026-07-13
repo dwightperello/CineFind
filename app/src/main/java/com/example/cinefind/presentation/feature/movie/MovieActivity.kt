@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.example.cinefind.R
 import com.example.cinefind.databinding.ActivityMovieBinding
-import com.example.cinefind.presentation.base.BaseActivity
+import com.example.mvvmbase.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

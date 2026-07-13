@@ -13,8 +13,8 @@ import com.example.cinefind.domain.usecase.GetMoviesBasedOnGenreUseCase
 import com.example.cinefind.domain.usecase.GetMyFavoriteMoviesUseCase
 import com.example.cinefind.domain.usecase.GetUpcomingMovieUseCase
 import com.example.cinefind.domain.usecase.MarkFavoriteUseCase
-import com.example.cinefind.presentation.base.BaseViewModel
-import com.example.cinefind.presentation.base.SingleLiveEvent
+import com.example.mvvmbase.BaseViewModel
+import com.example.mvvmbase.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

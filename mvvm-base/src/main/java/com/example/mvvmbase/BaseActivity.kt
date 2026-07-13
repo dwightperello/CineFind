@@ -1,4 +1,4 @@
-package com.example.cinefind.presentation.base
+package com.example.mvvmbase
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import com.example.cinefind.presentation.navigation.NavigationRequest
 
 abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel>(
     private val bindingFactory: (LayoutInflater) -> VB

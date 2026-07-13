@@ -1,4 +1,4 @@
-package com.example.cinefind.presentation.navigation
+package com.example.mvvmbase
 
 sealed class NavigationRequest {
     object GoBack : NavigationRequest()

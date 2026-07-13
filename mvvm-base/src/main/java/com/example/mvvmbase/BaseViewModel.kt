@@ -1,9 +1,8 @@
-package com.example.cinefind.presentation.base
+package com.example.mvvmbase
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinefind.presentation.navigation.NavigationRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
