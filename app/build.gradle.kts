@@ -41,7 +41,7 @@ android {
 }
 
 dependencies {
-    implementation(files("libs/mvvm-base-release.aar"))
+    implementation("com.github.dwightperello:mvvm-base:1.0.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
