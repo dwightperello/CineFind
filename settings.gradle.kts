@@ -34,3 +34,4 @@ dependencyResolutionManagement {
 rootProject.name = "CineFind"
 include(":app")
 include(":mvvm-base")
+include(":mvvm-compose-base")

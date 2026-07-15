@@ -8,6 +8,7 @@ import com.example.cinefind.domain.usecase.GetAccountUseCase
 import com.example.cinefind.domain.usecase.GetGenreUseCase
 import com.example.cinefind.domain.usecase.GetMovieUseCase
 import com.example.cinefind.domain.usecase.GetMoviesBasedOnGenreUseCase
+import com.example.cinefind.domain.usecase.GetMyFavoriteMoviesUseCase
 import com.example.cinefind.domain.usecase.GetUpcomingMovieUseCase
 import com.example.cinefind.domain.usecase.MarkFavoriteUseCase
 import io.mockk.coEvery
@@ -52,6 +53,7 @@ class MovieViewModelTest {
     private val getAccountUseCase: GetAccountUseCase = mockk()
     private val markFavoriteUseCase: MarkFavoriteUseCase = mockk()
     private val getMoviesBasedOnGenreUseCase: GetMoviesBasedOnGenreUseCase = mockk()
+    private val getMyFavoriteMoviesUseCase: GetMyFavoriteMoviesUseCase = mockk()
 
     private lateinit var viewModel: MovieViewModel
 
@@ -71,7 +73,8 @@ class MovieViewModelTest {
             getGenreUseCase = getGenreUseCase,
             getAccountUseCase = getAccountUseCase,
             markFavoriteUseCase = markFavoriteUseCase,
-            getMoviesBasedOnGenreUseCase = getMoviesBasedOnGenreUseCase
+            getMoviesBasedOnGenreUseCase = getMoviesBasedOnGenreUseCase,
+            getMyFavoriteMoviesUseCase = getMyFavoriteMoviesUseCase
         )
     }
 

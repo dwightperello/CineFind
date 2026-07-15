@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -37,10 +38,14 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
     }
 }
 
 dependencies {
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
+
     implementation("com.github.dwightperello:mvvm-base:1.0.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -48,6 +53,7 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
+    implementation("com.github.dwightperello:mvvm-compose-base:1.0.0")
     ksp(libs.hilt.compiler)
 
     // ViewModel + LiveData
